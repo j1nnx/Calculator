@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/calculator")
-public class CalculatorCantroler {
+public class CalculatorController {
     private final CalculatorServiceImpl calculatorService;
 
-    public CalculatorCantroler(CalculatorServiceImpl calculatorService){
+    public CalculatorController(CalculatorServiceImpl calculatorService){
         this.calculatorService = calculatorService;
     }
 
@@ -36,7 +36,7 @@ public class CalculatorCantroler {
     }
 
     @GetMapping(path = "/divide")
-    public String divide(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber ) throws IllegalAccessException{
+    public String divide(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber ) throws ArithmeticException, IllegalAccessException {
         return calculatorService.divide(firstNumber, secondNumber);
     }
 }
