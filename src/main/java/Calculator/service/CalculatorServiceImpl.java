@@ -7,12 +7,12 @@ public class CalculatorServiceImpl implements CalculatorService{
 
     @Override
     public String hello(){
-        return "Добро пожаловать!";
+        return "Добро пожаловать в калькулятор!";
     }
 
     @Override
     public String addNumber(int number1, int number2) {
-        int sum = number1 + number1;
+        int sum = number1 + number2;
         return number1 + " + " + number2 + " = " + sum;
     }
 
