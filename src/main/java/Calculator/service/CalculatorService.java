@@ -3,11 +3,11 @@ package Calculator.service;
 public interface CalculatorService {
     String hello();
 
-    String addNumber(int number1, int number2);
+    String addNumber(int num1, int num2);
 
-    String deduction(int number1, int number2);
+    String subtract(int num1, int num2);
 
-    String multiply(int number1, int number2);
+    String multiply(int num1, int num2);
 
-    String divide(int number1, int number2) throws IllegalAccessException;
+    String divide(int num1, int num2);
 }

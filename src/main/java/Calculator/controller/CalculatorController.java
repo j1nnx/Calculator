@@ -1,42 +1,45 @@
 package Calculator.controller;
 
-import Calculator.service.CalculatorServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import Calculator.service.CalculatorService;
+import Calculator.exception.DivisionByZeroException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/calculator")
+@RequestMapping("/calculator")
 public class CalculatorController {
-    private final CalculatorServiceImpl calculatorService;
+    private final CalculatorService calculatorService;
 
-    public CalculatorController(CalculatorServiceImpl calculatorService){
+    public CalculatorController(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
     }
 
     @GetMapping
-    public String sayHello(){
+    public String sayHello() {
         return calculatorService.hello();
     }
 
-    @GetMapping(path = "/plus")
-    public String added(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber){
-        return calculatorService.addNumber(firstNumber, secondNumber);
+    @GetMapping("/plus")
+    public String add(@RequestParam Integer num1, @RequestParam Integer num2) {
+        return calculatorService.addNumber(num1, num2);
     }
 
-    @GetMapping(path = "/minus")
-    public String minus(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber){
-        return calculatorService.deduction(firstNumber, secondNumber);
+    @GetMapping("/minus")
+    public String subtract(@RequestParam Integer num1, @RequestParam Integer num2) {
+        return calculatorService.subtract(num1, num2);
     }
 
-    @GetMapping(path = "/multiply")
-    public String multiply(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber){
-        return calculatorService.multiply(firstNumber, secondNumber);
+    @GetMapping("/multiply")
+    public String multiply(@RequestParam Integer num1, @RequestParam Integer num2) {
+        return calculatorService.multiply(num1, num2);
     }
 
-    @GetMapping(path = "/divide")
-    public String divide(@RequestParam("num1") int firstNumber, @RequestParam("num2") int secondNumber ) throws ArithmeticException, IllegalAccessException {
-        return calculatorService.divide(firstNumber, secondNumber);
+    @GetMapping("/divide")
+    public String divide(@RequestParam Integer num1, @RequestParam Integer num2) {
+        return calculatorService.divide(num1, num2);
+    }
+
+    @ExceptionHandler(DivisionByZeroException.class)
+    public String handleDivisionByZero(DivisionByZeroException e) {
+        return e.getMessage();
     }
 }
